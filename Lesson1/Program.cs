@@ -7,6 +7,7 @@ namespace Lesson1
 	{
 		static void Main(string[] args)
 		{
+			//test change
 
 			#region   console    datatypes
 
