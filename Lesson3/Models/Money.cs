@@ -6,6 +6,15 @@ namespace Lesson3.Models
 {
 	internal class Money
 	{
+		public Money()
+		{
+		}
+
+		public Money(string currency, decimal amount)
+		{
+			Currency = currency;
+			Amount = amount;
+		}
 
 		public string Currency { get; set; }
 		public decimal Amount { get; set; }
@@ -122,3 +131,8 @@ namespace Lesson3.Models
 //	GBP,
 //	RUB
 //}
+
+
+
+// override   იმპლემენტაციის გადაკეთება
+// overload   გადატვირთვა  -- ეს სიტყვა არ იწერება
