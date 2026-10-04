@@ -10,5 +10,9 @@ namespace Lesson4.LibraryModels
 		public string AuthorName { get; set; }
 		public int PublishYear { get; set;}
 
+		public override string? ToString()
+		{
+			return $"{Title}, {AuthorName}, {PublishYear} ";
+		}
 	}
 }

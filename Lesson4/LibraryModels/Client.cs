@@ -8,5 +8,10 @@ namespace Lesson4.LibraryModels
 	{
 
 		public void BorrowBook(Book book) { }
+
+		public override string? ToString()
+		{
+			return $"{Name} {Age} ";
+		}
 	}
 }
