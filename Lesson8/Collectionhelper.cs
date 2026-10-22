@@ -66,8 +66,9 @@ namespace Lesson8
 		//პირველივე ელემენტი რომელიც აკმაყოფილებს პირობას 
 		// customFirstorDefault
 
-		public static T CustomFirstorDefault<T>(this IEnumerable<T> collection, Predicate<T> pred) 
+		public static T CustomFirstorDefault<T>(this IEnumerable<T> collection, Predicate<T> pred = null) 
 		{
+
 		    foreach (var item in collection)
 			{
 				if (pred(item))	return item;
