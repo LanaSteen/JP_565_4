@@ -87,7 +87,7 @@ namespace Lesson10
 			string choice ="";
 			while(choice != "0")
 			{
-				Console.WriteLine("1. Register\n2. Show Users\n0. Exit");
+				Console.WriteLine("1. Register\n2. Show Users\n3. Show User by Id\n0. Exit");
 				choice = Console.ReadLine();
 
 				switch (choice)
@@ -120,6 +120,19 @@ namespace Lesson10
 							Console.WriteLine(item);
 						}
 
+						break;
+					case "3":
+						Console.WriteLine("Enter user ID:");
+						string userId = Console.ReadLine();
+						var userById = File.ReadAllLines(path).FirstOrDefault(x => x.Split('|')[0] == userId);
+						if (userById != null)
+						{
+							Console.WriteLine(userById);
+						}
+						else
+						{
+							Console.WriteLine("User not found.");
+						}
 						break;
 					case "0":
 						Console.WriteLine("Exiting...");
