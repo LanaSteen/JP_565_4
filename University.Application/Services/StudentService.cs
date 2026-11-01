@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using University.Application.Exceptions;
 using University.Domain.Interfaces;
 using University.Domain.Models;
 
@@ -23,11 +24,13 @@ namespace University.Application.Services
 		{
 			if(student == null)
 			{
-				Console.WriteLine("Student cannot be null.");
+				//Console.WriteLine("Student cannot be null.");
+				throw new NotValidStudertnException();
 			}
 			if(student.Age < 0)
 			{
-				Console.WriteLine("Student age cannot be negative.");
+				//Console.WriteLine("Student age cannot be negative.");
+				throw new NotValidStudertnException("Student age cannot be negative.");
 			}
 
 			_studentRepository.SaveStudent(student);

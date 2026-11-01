@@ -1,4 +1,5 @@
-﻿using University.Application.Services;
+﻿using University.Application.Exceptions;
+using University.Application.Services;
 using University.Domain.Interfaces;
 using University.Domain.Models;
 using University.Infrastructure;
@@ -16,11 +17,32 @@ namespace Uninversity.UI
 
 			StudentService studentService = new StudentService(studetnRepository);
 
-		
 
 
-			studentService.RegisterStudent(new Student { Id = 1, Name = "John Doe", Age = 20, Grade = "A" });
+			try
+			{
 
+				studentService.RegisterStudent(new Student { Id = 1, Name = "John Doe", Age = 20, Grade = "A" });
+
+			}
+			catch (ArgumentException ex)
+			{
+				Console.WriteLine(ex.Message);
+
+			}
+			catch (InvalidOperationException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			catch (NotValidStudertnException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			catch (Exception ex)
+			{
+
+				Console.WriteLine(ex.Message);
+			}
 
 
 			var students = studentService.GetAllStudents();
