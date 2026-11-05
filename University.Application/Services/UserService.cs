@@ -12,10 +12,12 @@ namespace University.Application.Services
 		//DI   
 
 		private readonly IUserRepository _userRepository;
+		private readonly EmailService _emailService;
 
-		public UserService(IUserRepository userRepository)
+		public UserService(IUserRepository userRepository, EmailService emailService	)
 		{
 			_userRepository = userRepository;
+			_emailService = emailService;
 		}
 
 		public void RegisterUser(string userName, string email, string password)
@@ -31,7 +33,7 @@ namespace University.Application.Services
 			}
 			// getAll
 			Random random = new();
-
+			string code = random.Next(1000, 9999).ToString();
 
 			var user = new User
 			{
@@ -39,16 +41,43 @@ namespace University.Application.Services
 				UserName = userName,
 				Email = email,
 				Password = BCrypt.Net.BCrypt.HashPassword(password),
-				VerificattionCode = random.Next(1000, 9999).ToString(),
+				VerificattionCode = code,
 				IsVerified = false
 			};
 			_userRepository.SaveUser(user);
+			_emailService.SendVerificationCode(email, code);
 		}
 
 
 		/// verification method 
 		/// IsVerified = true
 
+
+		public void Verify(string email, string verificationCode)
+		{
+			List<string> newUserList = new List<string>();
+			User user = _userRepository.GetUserByEmail(email);
+			if(user.VerificattionCode == verificationCode)
+			{
+				var users = _userRepository.GetAllUsers();
+
+				foreach (var item in users)
+				{
+					if(item.Email == email)
+					{
+						item.IsVerified = true;
+					}
+
+					newUserList.Add(item.ToString());
+				}
+
+				_userRepository.DeleteAllUsers();
+				_userRepository.SaveUsers(newUserList);
+
+				// file გავასაფთაო
+				// დავამატო ახალი სია
+			}
+		}
 
 
 		public void LoginUser(string email, string password)

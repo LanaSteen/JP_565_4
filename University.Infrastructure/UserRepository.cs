@@ -15,6 +15,15 @@ namespace University.Infrastructure
 			File.AppendAllLines(_path, new List<string> { user.ToString() });
 		}
 
+		public void SaveUsers(List<string> users)
+		{
+			File.AppendAllLines(_path, users);
+		}
+
+		public void DeleteAllUsers()
+		{
+			File.AppendAllText(_path,"");
+		}
 		public User GetUserByEmail(string email)
 		{
 			var userLines = File.ReadAllLines(_path).ToList();

@@ -21,6 +21,7 @@ namespace Uninversity.UI.Menu
 		{
 			Console.WriteLine("1. Register");
 			Console.WriteLine("2. Login");
+			Console.WriteLine("3. Verify");
 			Console.WriteLine("0. Exit");
 			string choice = Console.ReadLine();
 			switch (choice)
@@ -30,6 +31,9 @@ namespace Uninversity.UI.Menu
 					break;
 				case "2":
 					LoginUser();
+					break;
+				case "3":
+					VerifyUser();
 					break;
 				case "0":
 					Console.WriteLine("Exiting...");
@@ -65,6 +69,16 @@ namespace Uninversity.UI.Menu
 			_service.LoginUser(email, password);
 
 
+		}
+
+
+		public void VerifyUser()
+		{
+			Console.WriteLine("Enter Email");
+			string email = Console.ReadLine();
+			Console.WriteLine("Enter Verification Code");
+			string verificationCode = Console.ReadLine();
+			_service.Verify(email, verificationCode);
 		}
 
 		// რეგისტრაცია

@@ -10,5 +10,8 @@ namespace University.Domain.Interfaces
 		void SaveUser(User user);
 		User GetUserByEmail(string email);
 		List<User> GetAllUsers();
+		void DeleteAllUsers();
+		void SaveUsers(List<string> users);
+
 	}
 }

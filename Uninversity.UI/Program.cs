@@ -13,7 +13,8 @@ namespace Uninversity.UI
 		{
 
 			UserRepository userRepository = new UserRepository();
-			UserService userService = new UserService(userRepository);
+			EmailService emService = new();
+			UserService userService = new UserService(userRepository, emService);
 			MainMenu mainMenu = new MainMenu(userService);
 
 			string choice = string.Empty;
