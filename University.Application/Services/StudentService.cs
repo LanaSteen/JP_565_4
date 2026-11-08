@@ -43,9 +43,48 @@ namespace University.Application.Services
 			var studentList = _studentRepository.GetAllStudents();
 			if(studentList == null || studentList.Count == 0)
 			{
-				Console.WriteLine("No students found.");
+	
+				throw new StudentNotFoundException();
 			}
 			return _studentRepository.GetAllStudents();
+		}
+
+
+		public Student GetStudentById(int id)
+		{
+			var student = _studentRepository.GetStudentById(id);
+			if (student == null)
+			{
+				throw new StudentNotFoundException($"No student found with ID: {id}");
+			
+			}
+			return student;
+		}
+
+		public void DeleteAllStudents()
+		{
+			_studentRepository.DeleteAllStudents();
+		}
+		public void DeleteStudentById(int id)
+		{
+			var student = _studentRepository.GetStudentById(id);
+			if (student == null)
+			{
+				throw new StudentNotFoundException($"No student found with ID: {id}");
+			}
+			_studentRepository.DeleteStudentById(id);
+		}
+
+
+
+		public void UpdateStudent(Student updatedStudent)
+		{
+			var student = _studentRepository.GetStudentById(updatedStudent.Id);
+			if (student == null)
+			{
+				throw new StudentNotFoundException($"No student found with ID: {updatedStudent.Id}");
+			}
+			_studentRepository.UpdateStudent(updatedStudent);
 		}
 	}
 }

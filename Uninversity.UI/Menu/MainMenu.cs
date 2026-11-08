@@ -10,10 +10,12 @@ namespace Uninversity.UI.Menu
 
 		//DI
 		private readonly UserService _service;
+		private readonly StudentService _studentService;
 
-		public MainMenu(UserService service)
+		public MainMenu(UserService service, StudentService studentService	)
 		{
 			_service = service;
+			_studentService = studentService;
 		}
 
 
@@ -59,7 +61,7 @@ namespace Uninversity.UI.Menu
 
 		}
 
-		public void LoginUser()
+		public void LoginUser() // todo dont allow login if not verified
 		{
 			Console.WriteLine("Enter Email");
 			string email = Console.ReadLine();
@@ -68,6 +70,13 @@ namespace Uninversity.UI.Menu
 
 			_service.LoginUser(email, password);
 
+
+
+			AdminMenu adm = new AdminMenu(_studentService);
+			adm.ShowMenu();
+
+			//// if admin show admin menu
+			/// else show user menu
 
 		}
 

@@ -32,5 +32,47 @@ namespace University.Infrastructure
 			}
 			return studentList;
 		}
+	
+	
+	   public Student GetStudentById(int id)
+		{
+			var students = GetAllStudents();
+			var singleStudent = students.FirstOrDefault(x => x.Id == id);
+			return singleStudent;
+		}
+	
+		public void DeleteAllStudents()
+		{
+			File.WriteAllText(_path, ""); // Clear the file content
+		}
+
+		public void DeleteStudentById(int id)
+		{
+			var students = GetAllStudents();
+			var studentToDelete = students.FirstOrDefault(x => x.Id == id);
+			if (studentToDelete != null)
+			{
+				students.Remove(studentToDelete);
+				var linesToWrite = students.Select(s => s.ToString()).ToList();
+				File.WriteAllLines(_path, linesToWrite);
+			}
+		}
+
+
+		public void UpdateStudent(Student updatedStudent)
+		{
+			var students = GetAllStudents();
+			var studentToUpdate = students.FirstOrDefault(x => x.Id == updatedStudent.Id);
+			if (studentToUpdate != null)
+			{
+				studentToUpdate.Name = updatedStudent.Name;
+				studentToUpdate.Age = updatedStudent.Age;
+				studentToUpdate.Grade = updatedStudent.Grade;
+				var linesToWrite = students.Select(s => s.ToString()).ToList();
+				File.WriteAllLines(_path, linesToWrite);
+			}
+		}
+
+
 	}
 }
