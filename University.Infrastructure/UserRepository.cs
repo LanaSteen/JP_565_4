@@ -22,7 +22,7 @@ namespace University.Infrastructure
 
 		public void DeleteAllUsers()
 		{
-			File.AppendAllText(_path,"");
+			File.WriteAllText(_path,""); /// შეიცვალა writeშ
 		}
 		public User GetUserByEmail(string email)
 		{
@@ -38,6 +38,8 @@ namespace University.Infrastructure
 					user.UserName = parts[1];
 					user.Email = parts[2];
 					user.Password = parts[3];
+					user.VerificattionCode = parts[4];
+					user.IsVerified = bool.Parse(parts[5]);
 					return user;
 				}
 			}
@@ -57,6 +59,9 @@ namespace University.Infrastructure
 				user.UserName = parts[1];
 				user.Email = parts[2];
 				user.Password = parts[3];
+				user.VerificattionCode = parts[4];
+				user.IsVerified = bool.Parse( parts[5]);
+
 				userList.Add(user);
 			}
 			return userList;

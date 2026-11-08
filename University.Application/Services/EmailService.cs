@@ -8,7 +8,7 @@ namespace University.Application.Services
 {
 	public class EmailService
 	{
-		public static void SendEmail(string to, string subject, string body)
+		public static void SendEmail(string to, string subject, string body) /// todo appsettings.json
 		{
 			SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
 			smtpClient.UseDefaultCredentials = false;
