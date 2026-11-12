@@ -55,9 +55,11 @@ namespace Uninversity.UI.Menu
 			string email = Console.ReadLine();
 			Console.WriteLine("Enter Password");
 			string password = Console.ReadLine();
+			Console.WriteLine("Enter Role");
+			string role = Console.ReadLine();
 
 			//service.RegisterUser();
-			_service.RegisterUser(userName, email, password);
+			_service.RegisterUser(userName, email, password, role);
 
 		}
 

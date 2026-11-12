@@ -13,6 +13,9 @@ namespace University.Domain.Models
 		public string VerificattionCode { get; set; }
 		public bool IsVerified { get; set; } = false;
 
+
+		public string Role { get; set; } = "User"; // Default role is "User"
+
 		public override string? ToString()
 		{
 			return $"{Id}|{UserName}|{Email}|{Password}|{VerificattionCode}|{IsVerified}";

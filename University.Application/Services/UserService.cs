@@ -20,7 +20,7 @@ namespace University.Application.Services
 			_emailService = emailService;
 		}
 
-		public void RegisterUser(string userName, string email, string password)
+		public void RegisterUser(string userName, string email, string password, string role)
 		{
 	
 			List<User> users = _userRepository.GetAllUsers();
@@ -42,7 +42,8 @@ namespace University.Application.Services
 				Email = email,
 				Password = BCrypt.Net.BCrypt.HashPassword(password),
 				VerificattionCode = code,
-				IsVerified = false
+				IsVerified = false,
+				Role = role	
 			};
 			_userRepository.SaveUser(user);
 			_emailService.SendVerificationCode(email, code);
@@ -80,7 +81,7 @@ namespace University.Application.Services
 		}
 
 
-		public void LoginUser(string email, string password)
+		public User LoginUser(string email, string password)
 		{
 			var user = _userRepository.GetUserByEmail(email);
 			                             
@@ -88,11 +89,9 @@ namespace University.Application.Services
 			{
 				Console.WriteLine("Login successful!");
 				// Perform further actions after successful login
+				return user;
 			}
-			else
-			{
-				Console.WriteLine("Invalid email or password.");
-			}
+			throw new UnauthorizedAccessException("Invalid email or password.");
 		}
 
 	}

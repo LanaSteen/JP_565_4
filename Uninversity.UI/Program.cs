@@ -15,7 +15,9 @@ namespace Uninversity.UI
 			UserRepository userRepository = new UserRepository();
 			EmailService emService = new();
 			UserService userService = new UserService(userRepository, emService);
-			MainMenu mainMenu = new MainMenu(userService);
+			StudetnRepository studentRepository = new StudetnRepository();
+			StudentService studentService = new StudentService(studentRepository);
+			MainMenu mainMenu = new MainMenu(userService, studentService);
 
 			string choice = string.Empty;
 			while(choice != "0")

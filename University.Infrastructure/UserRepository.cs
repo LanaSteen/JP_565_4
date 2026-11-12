@@ -40,6 +40,7 @@ namespace University.Infrastructure
 					user.Password = parts[3];
 					user.VerificattionCode = parts[4];
 					user.IsVerified = bool.Parse(parts[5]);
+					user.Role = parts[6];
 					return user;
 				}
 			}
@@ -61,6 +62,7 @@ namespace University.Infrastructure
 				user.Password = parts[3];
 				user.VerificattionCode = parts[4];
 				user.IsVerified = bool.Parse( parts[5]);
+				user.Role = parts[6];
 
 				userList.Add(user);
 			}
