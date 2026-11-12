@@ -49,7 +49,7 @@ namespace University.Application.Services.Implemetations
 				Password = BCrypt.Net.BCrypt.HashPassword(password),
 				VerificattionCode = code,
 				IsVerified = false,
-				Role = role	
+				Role = Enum.Parse<UserRole>(role)
 			};
 			_userRepository.SaveUser(user);
 			_emailService.SendVerificationCode(email, code);

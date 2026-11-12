@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using University.Application.Services.Implemetations;
 using University.Application.Services.Interfaces;
+using University.Domain.Models;
 
 namespace Uninversity.UI.Menu
 {
@@ -74,8 +75,15 @@ namespace Uninversity.UI.Menu
 
 
 
-			Console.WriteLine("Enter Role");
-			string role = Console.ReadLine();
+			//Console.WriteLine("Enter Role");
+			//string role = Console.ReadLine();
+
+
+			var role = AnsiConsole.Prompt(
+				new SelectionPrompt<string>()
+				.Title("Choose Role")
+				.AddChoices("Admin", "User"));
+
 
 			//service.RegisterUser();
 			_service.RegisterUser(userName, email, passwordResult, role);
@@ -91,7 +99,7 @@ namespace Uninversity.UI.Menu
 
 		  	var user =_service.LoginUser(email, password);
 
-			if(user.Role == "Admin")
+			if(user.Role == UserRole.Admin)
 			{
 				AdminMenu adm = new AdminMenu(_studentService);
 				adm.ShowMenu();

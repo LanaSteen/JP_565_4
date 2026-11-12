@@ -14,11 +14,20 @@ namespace University.Domain.Models
 		public bool IsVerified { get; set; } = false;
 
 
-		public string Role { get; set; } = "User"; // Default role is "User"
 
+		public UserRole Role { get; set; } = UserRole.User; // Default role is "User"
+		                            // enum უნდა იყოს
 		public override string? ToString()
 		{
 			return $"{Id}|{UserName}|{Email}|{Password}|{VerificattionCode}|{IsVerified}|{Role}";
 		}
+	}
+
+
+
+   public enum UserRole
+	{
+		Admin,
+		User
 	}
 }
