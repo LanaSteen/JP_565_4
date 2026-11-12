@@ -5,7 +5,7 @@ using University.Application.Exceptions;
 using University.Domain.Interfaces;
 using University.Domain.Models;
 
-namespace University.Application.Services
+namespace University.Application.Services.Implemetations
 {
 	public class StudentService
 	{

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Spectre.Console;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using University.Application.Exceptions;
-using University.Application.Services;
+using University.Application.Services.Implemetations;
 
 namespace Uninversity.UI.Menu
 {
@@ -18,42 +19,44 @@ namespace Uninversity.UI.Menu
 
 		public void ShowMenu()
 		{
-			Console.WriteLine("1. Register Student");
-			Console.WriteLine("2. Update Student");
-			Console.WriteLine("3. Get Student by Id");
-			Console.WriteLine("4. Get Students");
-			Console.WriteLine("5. DELETE StudentS");
-			Console.WriteLine("6. DELETE Student bY ID");
-			Console.WriteLine("0. Exit");
-			string choice = Console.ReadLine();
-			switch (choice)
+			string choice = "";
+			while (choice !="0")
 			{
-				case "1":
-					RegisterStudent();
-					break;
-				case "2":
-					UpdateStudent();
-					break;
-				case "3":
-					GetStudentById();
-					break;
-				case "4":
-					GetStudents();
-					break;
-				case "5":
-					DeleteAllStudents();
-					break;
-				case "6":
-					DeleteStudentById();
-					break;
-
-				case "0":
-					Console.WriteLine("Exiting...");
-					break;
-				default:
-					Console.WriteLine("Invalid choice. Please try again.");
-					ShowMenu();
-					break;
+				Console.WriteLine("1. Show All Students");
+				Console.WriteLine("2. Show Student By Id");
+				Console.WriteLine("3. Register Student");
+				Console.WriteLine("4. Update Student");
+				Console.WriteLine("5. Delete All Students");
+				Console.WriteLine("6. Delete Student By Id");
+				Console.WriteLine("0. Exit");
+				 choice = Console.ReadLine();
+				switch (choice)
+				{
+					case "1":
+						GetStudents();
+						break;
+					case "2":
+						GetStudentById();
+						break;
+					case "3":
+						RegisterStudent();
+						break;
+					case "4":
+						UpdateStudent();
+						break;
+					case "5":
+						DeleteAllStudents();
+						break;
+					case "6":
+						DeleteStudentById();
+						break;
+					case "0":
+						Console.WriteLine("Exiting...");
+						return;
+					default:
+						Console.WriteLine("Invalid choice. Please try again.");
+						break;
+				}
 			}
 		}
 
@@ -124,10 +127,23 @@ namespace Uninversity.UI.Menu
 	    private void GetStudents()
 		{
 			var students = _studentService.GetAllStudents();
+
+			var table = new Table();
+
+			// Add columns
+			table.AddColumn("Id");
+			table.AddColumn("Name");
+			table.AddColumn("Age");
+			table.AddColumn("Grade");
+
 			foreach (var student in students)
 			{
-				Console.WriteLine(student);
+				// Add rows
+				table.AddRow(student.Id.ToString(), student.Name, student.Age.ToString(), student.Grade.ToString());
 			}
+
+
+			AnsiConsole.Write(table);
 		}
 
 		private void DeleteAllStudents()

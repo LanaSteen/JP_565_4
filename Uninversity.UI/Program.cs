@@ -1,6 +1,8 @@
-﻿using Uninversity.UI.Menu;
+﻿using Spectre.Console;
+using Uninversity.UI.Menu;
 using University.Application.Exceptions;
-using University.Application.Services;
+using University.Application.Services.Implemetations;
+using University.Application.Services.Interfaces;
 using University.Domain.Interfaces;
 using University.Domain.Models;
 using University.Infrastructure;
@@ -12,19 +14,28 @@ namespace Uninversity.UI
 		static void Main(string[] args)
 		{
 
-			UserRepository userRepository = new UserRepository();
-			EmailService emService = new();
-			UserService userService = new UserService(userRepository, emService);
+			IUserRepository userRepository = new UserRepository();
+			IEmailService emService = new EmailNewService();
+			IEmailService emailService = new EmailService();	
+			IUserService userService = new UserService(userRepository, emailService);
 			StudetnRepository studentRepository = new StudetnRepository();
 			StudentService studentService = new StudentService(studentRepository);
 			MainMenu mainMenu = new MainMenu(userService, studentService);
 
-			string choice = string.Empty;
-			while(choice != "0")
+			try
+			{
+				string choice = string.Empty;
+				while (choice != "0")
+				{
+
+					mainMenu.ShowMenu();
+
+				}
+			}
+			catch (Exception ex)
 			{
 
-				mainMenu.ShowMenu();
-
+				AnsiConsole.MarkupLine($"[red]Error message[/] {ex.Message} ");
 			}
 
 

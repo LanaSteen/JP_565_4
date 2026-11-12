@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using University.Application.Services.Interfaces;
 using University.Domain.Interfaces;
 using University.Domain.Models;
 
-namespace University.Application.Services
+namespace University.Application.Services.Implemetations
 {
-	public class UserService
+	public class UserService : IUserService
 	{
 
 		//DI   
 
 		private readonly IUserRepository _userRepository;
-		private readonly EmailService _emailService;
+		private readonly IEmailService _emailService;
 
-		public UserService(IUserRepository userRepository, EmailService emailService	)
+		public UserService(IUserRepository userRepository, IEmailService emailService	)
 		{
 			_userRepository = userRepository;
 			_emailService = emailService;
@@ -24,6 +25,11 @@ namespace University.Application.Services
 		{
 	
 			List<User> users = _userRepository.GetAllUsers();
+
+			if(users.Any(x => x.Email == email))
+			{
+				throw new ArgumentException("Email is already registered");
+			}
 
 			int maxId = 0;
 			if(users.Count > 0)
@@ -84,7 +90,12 @@ namespace University.Application.Services
 		public User LoginUser(string email, string password)
 		{
 			var user = _userRepository.GetUserByEmail(email);
-			                             
+
+			if(user.IsVerified == false)
+			{
+				throw new UnauthorizedAccessException("User is not verified. Please verify your account before logging in.");
+			}
+
 			if (user != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
 			{
 				Console.WriteLine("Login successful!");

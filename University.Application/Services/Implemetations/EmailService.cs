@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using University.Application.Services.Interfaces;
 
-namespace University.Application.Services
+namespace University.Application.Services.Implemetations
 {
-	public class EmailService
+	public class EmailService : IEmailService
 	{
-		public static void SendEmail(string to, string subject, string body) /// todo appsettings.json
+		
+		public void SendEmail(string to, string subject, string body) /// todo appsettings.json
 		{
 			SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
 			smtpClient.UseDefaultCredentials = false;

@@ -18,7 +18,7 @@ namespace University.Domain.Models
 
 		public override string? ToString()
 		{
-			return $"{Id}|{UserName}|{Email}|{Password}|{VerificattionCode}|{IsVerified}";
+			return $"{Id}|{UserName}|{Email}|{Password}|{VerificattionCode}|{IsVerified}|{Role}";
 		}
 	}
 }

@@ -1,0 +1,2 @@
+0|dd|vejir17691@chuwel.com|$2a$11$VbTVfodqBPK5DAbFND9vVOzN8BkIAcyD4Dl3PTyxyENwD5nMoxd8C|4683|True|User
+1|admin|fivaja5435@micropaste.com|$2a$11$6Dsj/ZcsIRoy.ne2Qozi/.IOd7Emlg8N2Soe035zizpyBT8tmW3rO|7968|True|Admin

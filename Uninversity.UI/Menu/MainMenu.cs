@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Spectre.Console;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using University.Application.Services;
+using University.Application.Services.Implemetations;
+using University.Application.Services.Interfaces;
 
 namespace Uninversity.UI.Menu
 {
@@ -9,10 +11,10 @@ namespace Uninversity.UI.Menu
 	{
 
 		//DI
-		private readonly UserService _service;
+		private readonly IUserService _service;
 		private readonly StudentService _studentService;
 
-		public MainMenu(UserService service, StudentService studentService	)
+		public MainMenu(IUserService service, StudentService studentService	)
 		{
 			_service = service;
 			_studentService = studentService;
@@ -21,23 +23,30 @@ namespace Uninversity.UI.Menu
 
 		public void ShowMenu()
 		{
-			Console.WriteLine("1. Register");
-			Console.WriteLine("2. Login");
-			Console.WriteLine("3. Verify");
-			Console.WriteLine("0. Exit");
-			string choice = Console.ReadLine();
+			//Console.WriteLine("1. Register");
+			//Console.WriteLine("2. Login");
+			//Console.WriteLine("3. Verify");
+			//Console.WriteLine("0. Exit");
+
+			var choice = AnsiConsole.Prompt(
+				new SelectionPrompt<string>()
+				.Title("1. Register, 2. Login, 3. Verify, 0. Exit")
+				.AddChoices("1. Register", "2. Login", "3. Verify", "0. Exit"));
+
+
+			//string choice = Console.ReadLine();
 			switch (choice)
 			{
-				case "1":
+				case "1. Register":
 					RegisterUser();
 					break;
-				case "2":
+				case "2. Login":
 					LoginUser();
 					break;
-				case "3":
+				case "3. Verify":
 					VerifyUser();
 					break;
-				case "0":
+				case "0. Exit":
 					Console.WriteLine("Exiting...");
 					break;
 				default:
@@ -53,13 +62,23 @@ namespace Uninversity.UI.Menu
 			string userName = Console.ReadLine();
 			Console.WriteLine("Enter Email");
 			string email = Console.ReadLine();
-			Console.WriteLine("Enter Password");
-			string password = Console.ReadLine();
+
+
+			// masking password input  specre.console-
+			var password = new TextPrompt<string>("Enter your [green]password[/]:").Secret();
+			var passwordResult = AnsiConsole.Prompt(password);
+
+			//Console.WriteLine("Enter Password");
+			//string password = Console.ReadLine();
+
+
+
+
 			Console.WriteLine("Enter Role");
 			string role = Console.ReadLine();
 
 			//service.RegisterUser();
-			_service.RegisterUser(userName, email, password, role);
+			_service.RegisterUser(userName, email, passwordResult, role);
 
 		}
 
@@ -70,12 +89,20 @@ namespace Uninversity.UI.Menu
 			Console.WriteLine("Enter Password");
 			string password = Console.ReadLine();
 
-			_service.LoginUser(email, password);
+		  	var user =_service.LoginUser(email, password);
+
+			if(user.Role == "Admin")
+			{
+				AdminMenu adm = new AdminMenu(_studentService);
+				adm.ShowMenu();
+			}
+			else
+			{
+				UserMenu usm = new UserMenu(_studentService);
+				usm.ShowMenu();
+			}
 
 
-
-			AdminMenu adm = new AdminMenu(_studentService);
-			adm.ShowMenu();
 
 			//// if admin show admin menu
 			/// else show user menu
