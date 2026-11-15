@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using Microsoft.Extensions.Configuration;
+using Spectre.Console;
 using Uninversity.UI.Menu;
 using University.Application.Exceptions;
 using University.Application.Services.Implemetations;
@@ -13,6 +14,10 @@ namespace Uninversity.UI
 	{
 		static void Main(string[] args)
 		{
+			var config = new ConfigurationBuilder()
+				.SetBasePath(Directory.GetCurrentDirectory())
+				.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+				.Build();
 
 			IUserRepository userRepository = new UserRepository();
 			IEmailService emService = new EmailNewService();
@@ -20,7 +25,7 @@ namespace Uninversity.UI
 			IUserService userService = new UserService(userRepository, emailService);
 			StudetnRepository studentRepository = new StudetnRepository();
 			StudentService studentService = new StudentService(studentRepository);
-			MainMenu mainMenu = new MainMenu(userService, studentService);
+			MainMenu mainMenu = new MainMenu(userService, studentService, config);
 
 			try
 			{

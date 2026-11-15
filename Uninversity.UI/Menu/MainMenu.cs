@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using Microsoft.Extensions.Configuration;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,13 +13,15 @@ namespace Uninversity.UI.Menu
 	{
 
 		//DI
+		private readonly IConfiguration _configuration;
 		private readonly IUserService _service;
 		private readonly StudentService _studentService;
 
-		public MainMenu(IUserService service, StudentService studentService	)
+		public MainMenu(IUserService service, StudentService studentService	, IConfiguration configuration)
 		{
 			_service = service;
 			_studentService = studentService;
+			_configuration = configuration;
 		}
 
 
@@ -83,6 +86,18 @@ namespace Uninversity.UI.Menu
 				new SelectionPrompt<string>()
 				.Title("Choose Role")
 				.AddChoices("Admin", "User"));
+			if(role == "Admin")
+			{
+				string secretword = AnsiConsole.Prompt(
+					new TextPrompt<string>("Enter Secret Word:")
+				);
+				if(secretword != _configuration["SecretWordForAdmin"])
+				{
+					Console.WriteLine("Invalid Secret Word. Defaulting to User role.");
+					role = "User";
+				}
+			}
+			
 
 
 			//service.RegisterUser();

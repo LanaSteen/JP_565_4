@@ -2,3 +2,4 @@
 1|admin|fivaja5435@micropaste.com|$2a$11$6Dsj/ZcsIRoy.ne2Qozi/.IOd7Emlg8N2Soe035zizpyBT8tmW3rO|7968|True|Admin
 2|zz|kicamel626@micropaste.com|$2a$11$zn/6EvQdizcuCVJXuU8OTOYAnuHWutrvK5mcD0PcVcpKnl58Zlmry|4454|True|User
 3|qq|ledije9732@nbasweeps.com|$2a$11$Iv3eSqYI0sQ8jPzErkPuQO80ECO9HuQMAurfnCE0xxzZboJoDDxAy|6413|True|Admin
+4|dd|secoy19358@fulldiets.com|$2a$11$92ky7hv.N3RI/QFEb4IKR.hrJYwz8a4.l.39yPVjaOTdi3JS5s5WC|8783|False|User
