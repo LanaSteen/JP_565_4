@@ -105,14 +105,14 @@ namespace Uninversity.UI.Menu
 
 		}
 
-		public void LoginUser() // todo dont allow login if not verified
+		public async Task LoginUser() // todo dont allow login if not verified
 		{
 			Console.WriteLine("Enter Email");
 			string email = Console.ReadLine();
 			Console.WriteLine("Enter Password");
 			string password = Console.ReadLine();
 
-		  	var user =_service.LoginUser(email, password);
+		  	var user = await	_service.LoginUser(email, password);
 
 			if(user.Role == UserRole.Admin)
 			{

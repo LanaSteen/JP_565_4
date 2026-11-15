@@ -21,10 +21,10 @@ namespace University.Application.Services.Implemetations
 			_emailService = emailService;
 		}
 
-		public void RegisterUser(string userName, string email, string password, string role)
+		public  async Task RegisterUser(string userName, string email, string password, string role)
 		{
 	
-			List<User> users = _userRepository.GetAllUsers();
+			List<User> users = await _userRepository.GetAllUsers();
 
 			if(users.Any(x => x.Email == email))
 			{
@@ -60,13 +60,13 @@ namespace University.Application.Services.Implemetations
 		/// IsVerified = true
 
 
-		public void Verify(string email, string verificationCode)
+		public async Task Verify(string email, string verificationCode)
 		{
 			List<string> newUserList = new List<string>();
-			User user = _userRepository.GetUserByEmail(email);
+			User user =await _userRepository.GetUserByEmail(email);
 			if(user.VerificattionCode == verificationCode)
 			{
-				var users = _userRepository.GetAllUsers();
+				var users = await _userRepository.GetAllUsers();
 
 				foreach (var item in users)
 				{
@@ -87,9 +87,9 @@ namespace University.Application.Services.Implemetations
 		}
 
 
-		public User LoginUser(string email, string password)
+		public async Task<User> LoginUser(string email, string password)
 		{
-			var user = _userRepository.GetUserByEmail(email);
+			var user = await _userRepository.GetUserByEmail(email);
 
 			if(user.IsVerified == false)
 			{

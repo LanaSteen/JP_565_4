@@ -7,11 +7,11 @@ namespace University.Domain.Interfaces
 {
 	public interface IUserRepository
 	{
-		void SaveUser(User user);
-		User GetUserByEmail(string email);
-		List<User> GetAllUsers();
-		void DeleteAllUsers();
-		void SaveUsers(List<string> users);
+		Task SaveUser(User user);
+		Task<User> GetUserByEmail(string email);
+		Task<List<User>> GetAllUsers();
+	    Task DeleteAllUsers();
+		Task SaveUsers(List<string> users);
 
 	}
 }

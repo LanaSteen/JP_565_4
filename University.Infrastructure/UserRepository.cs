@@ -10,23 +10,23 @@ namespace University.Infrastructure
 	{
 		private readonly string _path = @"C:\Users\l4nst\Desktop\JP_565_4 online\University.Infrastructure\Data\User.txt";
 
-		public void SaveUser(User user)
+		public async Task SaveUser(User user)
 		{
-			File.AppendAllLines(_path, new List<string> { user.ToString() });
+		  await	File.AppendAllLinesAsync(_path, new List<string> { user.ToString() });
 		}
 
-		public void SaveUsers(List<string> users)
+		public async Task SaveUsers(List<string> users)
 		{
-			File.AppendAllLines(_path, users);
+			await File.AppendAllLinesAsync(_path, users);
 		}
 
-		public void DeleteAllUsers()
+		public async Task DeleteAllUsers()
 		{
-			File.WriteAllText(_path,""); /// შეიცვალა writeშ
+			await File.WriteAllTextAsync(_path,""); /// შეიცვალა writeშ
 		}
-		public User GetUserByEmail(string email)
+		public async Task<User> GetUserByEmail(string email)
 		{
-			var userLines = File.ReadAllLines(_path).ToList();
+			var userLines = await File.ReadAllLinesAsync(_path);
 			foreach (var line in userLines)
 			{
 				var parts = line.Split('|');
@@ -48,9 +48,10 @@ namespace University.Infrastructure
 		}
 
 
-		public List<User> GetAllUsers()
+
+		public async Task<List<User>> GetAllUsers()
 		{
-			var userLines = File.ReadAllLines(_path).ToList();
+			var userLines = await File.ReadAllLinesAsync(_path);
 			List<User> userList = new List<User>();
 			foreach (var line in userLines)
 			{
